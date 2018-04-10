@@ -2,10 +2,13 @@ $backgroundColor: #eee;
 $textColor: #444;
 
 body {
-    background-color: $backgroundColor;
-    text-align: center;
-    color: $textColor;
+  background-color: $backgroundColor;
+  text-align: center;
+  color: $textColor;
 }
 
+@import "reset";
+@import "App";
+@import "SearchFrom";
 @import "GeocodeResult";
 @import "Map";

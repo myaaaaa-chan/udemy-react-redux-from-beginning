@@ -1,5 +1,12 @@
+// @flow
+
 import React, { PropTypes } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+
+type Location = {
+  lat: number,
+  lng: number
+};
 
 const InnerMap = withGoogleMap((props) =>
   <GoogleMap
@@ -13,14 +20,13 @@ const InnerMap = withGoogleMap((props) =>
   </GoogleMap>
 );
 
-const Map = ({ lat, lng }) => {
-  const position = { lat, lng };
+const Map = ({ location }: {location: Location}) => {
   return (
     <InnerMap
       containerElement={<div />}
       mapElement={<div className="map" />}
-      position={position}
-      marker={{ position }}
+      position={location}
+      marker={{ location }}
     />
   );
 };

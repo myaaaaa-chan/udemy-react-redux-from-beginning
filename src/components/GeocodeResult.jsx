@@ -1,20 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
 
-const GeocodeResult = ({ address, lat, lng }) => (
+import React from 'react';
+
+type Location = {
+  lat: number,
+  lng: number
+};
+
+const GeocodeResult = ({address, location}: { address: string, location: Location }) => (
   <div>
     <ul className="geocode-result">
       <li>住所：{address}</li>
-      <li>緯度：{lat}</li>
-      <li>経度：{lng}</li>
+      <li>緯度：{location.lat}</li>
+      <li>経度：{location.lng}</li>
     </ul>
   </div>
 );
-
-GeocodeResult.propTypes = {
-  address: PropTypes.string,
-  lat: PropTypes.number,
-  lng: PropTypes.number,
-};
 
 GeocodeResult.defaultProps = {
   address: '',

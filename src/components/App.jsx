@@ -1,56 +1,37 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import SearchFrom from './SearchFrom';
 import GeocodeResult from './GeocodeResult';
 import Map from './Map';
+import {geocode} from "../domain/GeoCorder";
 
-const GEOCODE_ENDPOINT = 'https://maps.googleapis.com/maps/api/geocode/json?';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      location: {lat:35.685462, lng:139.752904}
     };
-  }
-
-  handleMouseOver() {
-    this.setState({ name: 'Cat' });
-  }
-
-  handleMouseOut() {
-    this.setState({ name: 'Dog' });
-  }
-
-  handleOnChange(name) {
-    this.setState({ name });
   }
 
   handlePlaceSubmit(place) {
     console.log(place);
-    axios.get(GEOCODE_ENDPOINT, { params: { address: place } })
-      .then(
-        (results) => {
-          console.log(results);
-          const data = results.data;
-          switch (data.status) {
-            case 'OK':
-              const result = data.results[0];
-              const location = result.geometry.location;
-              this.setState({
-                address: result.formatted_address,
-                lat: location.lat,
-                lng: location.lng,
-              });
-              break;
-            case 'ZERO_RESULTS':
-              this.setErrorMessage('結果が見つかりませんでした');
-              break;
-            default:
-              break;
-          }
+    geocode(place)
+      .then(({status, address, location}) => {
+      switch (status) {
+          case 'OK':
+            this.setState({
+              address: address,
+              location: location,
+            });
+            break;
+          case 'ZERO_RESULTS':
+            this.setErrorMessage('結果が見つかりませんでした');
+            break;
+          default:
+            break;
         }
-      )
+      })
       .catch((error) => {
         console.log(error);
         this.setErrorMessage('通信に失敗しました');
@@ -60,22 +41,22 @@ class App extends Component {
   setErrorMessage(message) {
     this.setState({
       address: message,
-      lat: 0,
-      lng: 0,
+      location: {lat: 0, lng:0}
     });
   }
 
   render() {
     return (
-      <div>
-        <h1>緯度経度検索</h1>
+      <div className="App">
+        <h1 className="app-title">ホテル経度検索</h1>
         <SearchFrom onSubmit={(place) => this.handlePlaceSubmit(place)} />
-        <GeocodeResult
-          address={this.state.address}
-          lat={this.state.lat}
-          lng={this.state.lng}
-        />
-        <Map lat={this.state.lat} lng={this.state.lng} />
+        <div className="result-area">
+          <Map location={this.state.location} />
+          <GeocodeResult
+            address={this.state.address}
+            location={this.state.location}
+          />
+        </div>
       </div>
     );
   }

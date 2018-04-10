@@ -1,0 +1,37 @@
+body {
+  background-color: #eee;
+  text-align: center;
+  color: #444
+}
+
+.app {
+  width: 1000px;
+  margin: 0 auto
+}
+
+.app-title, .search-form {
+  text-align: center
+}
+
+.place-input {
+  font-size: 24px
+}
+
+.search-submit-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 24px;
+  background-color: #fff;
+  border: 1px solid #ccc
+}
+
+.geocode-result {
+  width: 500px;
+  margin: 0 auto;
+  text-align: left
+}
+
+.map {
+  height: 400px
+}

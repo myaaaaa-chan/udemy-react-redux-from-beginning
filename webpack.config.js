@@ -1,7 +1,10 @@
 /* global require */
+const webpack = require("webpack");
 const path = require('path');
 const process = require('process');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require("autoprefixer");
+const precss = require("precss");
 
 const publidDir = path.join(__dirname, 'public');
 
@@ -58,16 +61,27 @@ module.exports = [
       rules: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }),
+          loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: ["css-loader", "postcss-loader"]}),
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' }),
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ["css-loader", "postcss-loader", "sass-loader"]
+          }),
         },
       ],
     },
     plugins: [
       new ExtractTextPlugin('bundle.css'),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          postcss: [
+            autoprefixer({browsers: ['last 2 versions']}),
+            precss
+          ]
+        }
+      })
     ],
   },
 ];
