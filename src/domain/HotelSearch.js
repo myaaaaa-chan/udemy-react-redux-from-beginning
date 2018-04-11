@@ -28,7 +28,7 @@ export const hotelSearch = (location: Location) => {
           name: basicInfo.hotelName,
           url: basicInfo.hotelInformationUrl,
           thumbnailUrl: basicInfo.hotelThumbnailUrl,
-          minCharge: basicInfo.hotelMinCharge ? `${basicInfo.hotelMinCharge}円` : '空室なし',
+          minCharge: basicInfo.hotelMinCharge,
           reviewAverage: basicInfo.reviewAverage ? parseFloat(basicInfo.reviewAverage).toFixed(2) : 0,
           reviewCount: basicInfo.reviewCount ? basicInfo.reviewCount : 0,
           distance: distance,

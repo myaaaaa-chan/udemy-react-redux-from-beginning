@@ -2,19 +2,48 @@
 import React from 'react';
 
 import HotelRow from './HotelRow';
+import HotelsClickableTh from './HotelsClickableTh';
+
 import type Hotel from './HotelRow';
 
-const HotelsTable = ({hotels}: { hotels: Array<Hotel> }) => (
+export type HotelsTableProps = {
+  hotels: Array<Hotel>,
+  sortKey: string,
+  onSort: Function
+};
+
+const HotelsTable = ({hotels, sortKey, onSort}: HotelsTableProps) => (
   <table>
     <tbody>
-      <tr>
-        <th>画像</th>
-        <th>ホテル名</th>
-        <th>価格</th>
-        <th>レビュー(評価件数)</th>
-        <th>距離</th>
-      </tr>
-      {hotels.map((hotel: Hotel) => (<HotelRow key={hotel.id} hotel={hotel}/>))}
+    <tr>
+      <th>画像</th>
+      <th>ホテル名</th>
+      <HotelsClickableTh
+        label='価格'
+        sortKey='minCharge'
+        isSelected={sortKey === 'minCharge'}
+        onSort={(sortKey) => onSort(sortKey)}
+      />
+      <HotelsClickableTh
+        label='レビュー'
+        sortKey='reviewAverage'
+        isSelected={sortKey === 'reviewAverage'}
+        onSort={(sortKey) => onSort(sortKey)}
+      />
+      <HotelsClickableTh
+        label='評価件数'
+        sortKey='reviewCount'
+        isSelected={sortKey === 'reviewCount'}
+        onSort={(sortKey) => onSort(sortKey)}
+      />
+      <HotelsClickableTh
+        label='距離'
+        sortKey='distance'
+        isSelected={sortKey === 'distance'}
+        onSort={(sortKey) => onSort(sortKey)}
+      />
+    </tr>
+    {hotels.map((hotel: Hotel) => (<HotelRow key={hotel.id} hotel={hotel}/>))}
     </tbody>
   </table>
 );
