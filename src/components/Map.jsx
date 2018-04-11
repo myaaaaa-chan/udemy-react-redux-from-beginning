@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-type Location = {
+export type Location = {
   lat: number,
   lng: number
 };

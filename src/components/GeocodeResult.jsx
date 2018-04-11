@@ -19,8 +19,7 @@ const GeocodeResult = ({address, location}: { address: string, location: Locatio
 
 GeocodeResult.defaultProps = {
   address: '',
-  lat: 0,
-  lng: 0,
+  location: {lat: 0, lng: 0},
 };
 
 export default GeocodeResult;
