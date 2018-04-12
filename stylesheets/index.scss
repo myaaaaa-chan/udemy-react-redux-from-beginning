@@ -1,10 +1,12 @@
 $backgroundColor: #eee;
 $textColor: #444;
+$baseMargin: 40px;
 
 body {
   background-color: $backgroundColor;
   text-align: center;
   color: $textColor;
+  margin: 0px;
 }
 
 @import "reset";
